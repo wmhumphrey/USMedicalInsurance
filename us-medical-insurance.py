@@ -9,6 +9,7 @@ Last Modified: 1-8-21
 """
 import csv
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Parses insurace.csv data into age,sex,bmi,children,smoker,region,charges
 class MedicalData:
@@ -100,9 +101,9 @@ def smoker_per_age(us):
             smokers['50 to 59']+=1
         elif (a<70) and (a>=60):
             smokers['60 to 69']+=1
+    return smokers
 
-    for age in smokers:
-        print("The amount of smokers that are {age} years old is {number}.".format(age=age,number=smokers[age]))
+    
 
 #smoker_per_age(us)
 
@@ -146,6 +147,18 @@ def average_bmi_per_age(us):
 
 #average_bmi_per_age(us)
 
+
+
+
+
+
+
+
+
+
+
+
+
 def print_data(us):
     print('The anallysis for the data is as follows: \n')
     average_age(us)
@@ -154,8 +167,18 @@ def print_data(us):
     print('\n')
     most_frequent_region(us)
     print('\n')
-    smoker_per_age(us)
+    smokers=smoker_per_age(us)
+    for age in smokers:
+        print("The amount of smokers that are {age} years old is {number}.".format(
+            age=age, number=smokers[age]))
     print('\n')
     average_bmi_per_age(us)
 
 print_data(us)
+
+# plt.hist(us.age,bins=[18,30,40,50,60,70],rwidth=0.95)
+plt.bar(smoker_per_age(us).keys(),smoker_per_age(us).values(),width=.75)
+plt.xlabel("Age Groups")
+plt.ylabel("Amount of Smokers")
+plt.title("Frequency of Smokers Per Age Group")
+plt.show()
